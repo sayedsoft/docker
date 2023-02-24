@@ -107,7 +107,7 @@ cat >$WEB_DIR/$domain/index.html <<EOF
 EOF
 
 # Enable site by creating symbolic link
-ln -s $NGINX_AVAILABLE_VHOSTS/$domain $NGINX_ENABLED_VHOSTS/$domain
+ln -s $NGINX_ENABLED_VHOSTS/$domain $NGINX_AVAILABLE_VHOSTS/$domain
 
 service nginx restart
 
