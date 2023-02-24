@@ -75,12 +75,13 @@ server {
     }
 
 }
-
 EOF
 
 # Creating {public,log} directories
 mkdir -p $WEB_DIR/$domain/{public_html,logs}
 mkdir -p $WEB_DIR/logs
+
+sudo chown -R $USER:$USER $WEB_DIR/$domain
 
 # Creating index.html file
 cat >$WEB_DIR/$domain/index.html <<EOF
@@ -110,7 +111,7 @@ cat >$WEB_DIR/$domain/index.html <<EOF
 EOF
 
 # Enable site by creating symbolic link
-ln -s $NGINX_ENABLED_VHOSTS/$domain $NGINX_AVAILABLE_VHOSTS/$domain
+ln -s $NGINX_AVAILABLE_VHOSTS/$domain $NGINX_ENABLED_VHOSTS/
 
 service nginx restart
 
