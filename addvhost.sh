@@ -19,7 +19,7 @@ sudo htpasswd -c /etc/nginx/.htpasswd $primaryusername
 #NGINX_AVAILABLE_VHOSTS='/etc/nginx/sites-available'
 NGINX_ENABLED_VHOSTS='/etc/nginx/conf.d'
 WEB_DIR='/home'
-WEB_USER=USERNAME
+WEB_USER=$primaryusername
 
 # Sanity check
 [ $(id -g) != "0" ] && die "Script must be run as root."

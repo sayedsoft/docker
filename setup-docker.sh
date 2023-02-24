@@ -19,7 +19,7 @@ select yn in "Yes" "No"; do
     case $yn in
     Yes)
         echo "Running docker up"
-        sudo apt upgrade
+        docker compose down
         docker-compose up -d
         break
         ;;
@@ -29,8 +29,8 @@ done
 
 # Restart
 echo "Do you want run setup up domain  ?"
-select yn in "Yes" "No"; do
-    case $yn in
+select yndomain in "Yes" "No"; do
+    case $yndomain in
     Yes)
         echo "Setup.. domain"
         chmod +x ./addvhost.sh
