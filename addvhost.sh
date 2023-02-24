@@ -19,7 +19,7 @@ sudo htpasswd -c /etc/nginx/.htpasswd $primaryusername
 # Variables
 #NGINX_AVAILABLE_VHOSTS='/etc/nginx/sites-available'
 NGINX_ENABLED_VHOSTS='/etc/nginx/conf.d'
-WEB_DIR='/home'
+WEB_DIR='/var/www'
 WEB_USER=$primaryusername
 
 # Sanity check
@@ -37,7 +37,7 @@ cat >$NGINX_ENABLED_VHOSTS/$domain-vhost.conf <<EOF
 server {
     listen   80;
     server_name $domain www.$domain;
-    root  /var/www/$primaryusername;
+    root  $NGINX_ENABLED_VHOSTS/$primaryusername;
     charset  utf-8;
     index index.php index.html index.htm;
     #access_log $WEB_DIR/logs/$domain-access.log;
@@ -101,9 +101,6 @@ cat >$WEB_DIR/$primaryusername/index.html <<EOF
 </body>
 </html>
 EOF
-
-# Changing permissions
-chown -R $WEB_USER:$WEB_USER $WEB_DIR/$primaryusername
 
 # Enable site by creating symbolic link
 ln -s $NGINX_AVAILABLE_VHOSTS/$1 $NGINX_ENABLED_VHOSTS/$1
