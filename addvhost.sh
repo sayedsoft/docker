@@ -6,6 +6,7 @@ USERNAME=dockeruser
 read -p "Enter domain name : " domain
 read -p "Enter username : " primaryusername
 
+sudo useradd $primaryusername -g sudo
 # Functions
 ok() { echo -e '\e[32m'$domain'\e[m'; } # Green
 die() {
