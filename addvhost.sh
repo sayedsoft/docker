@@ -22,6 +22,11 @@ NGINX_ENABLED_VHOSTS='/etc/nginx/modules-enabled'
 WEB_DIR='/var/www'
 WEB_USER=$primaryusername
 
+sudo rm -rf /var/log/nginx
+sudo mkdir /var/log/nginx
+sudo touch /var/log/nginx/error.log
+sudo chown -R www-data:www-data /var/log/nginx
+
 # Sanity check
 [ $(id -g) != "0" ] && die "Script must be run as root."
 #[ $# != "1" ] && die "Usage: $(basename $0) domainName"
