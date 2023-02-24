@@ -37,7 +37,7 @@ cat >$NGINX_ENABLED_VHOSTS/$domain-vhost.conf <<EOF
 server {
     listen   80;
     server_name $domain www.$domain;
-    root  /home/USERNAME;
+    root  /var/www/$primaryusername;
     charset  utf-8;
     index index.php index.html index.htm;
     #access_log $WEB_DIR/logs/$domain-access.log;
