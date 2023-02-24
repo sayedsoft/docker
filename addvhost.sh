@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #
 sudo apt-get update
-sudo apt install certbot python3-certbot-nginx apache2-utils
 
 USERNAME=dockeruser
 read -p "Enter domain name : " domain
@@ -15,7 +14,6 @@ die() {
 }
 
 sudo htpasswd -c /etc/nginx/.htpasswd $primaryusername
-sudo sh -c "openssl passwd -apr1 >> /etc/nginx/.htpasswd"
 
 # Variables
 #NGINX_AVAILABLE_VHOSTS='/etc/nginx/sites-available'
@@ -86,7 +84,7 @@ EOF
 #mkdir -p $WEB_DIR/USERNAME/{public_html,logs}
 
 # Creating index.html file
-cat >$WEB_DIR/USERNAME/index.html <<EOF
+cat >$WEB_DIR/$primaryusername/index.html <<EOF
 <!DOCTYPE html>
 <head>
     <title>Quick links</title>
@@ -112,24 +110,14 @@ cat >$WEB_DIR/USERNAME/index.html <<EOF
 </html>
 EOF
 
-sudo certbot --nginx -d $domain -d www.$domain
-
 # Changing permissions
-chown -R $WEB_USER:$WEB_USER $WEB_DIR/USERNAME
+chown -R $WEB_USER:$WEB_USER $WEB_DIR/$primaryusername
 
 # Enable site by creating symbolic link
 ln -s $NGINX_AVAILABLE_VHOSTS/$1 $NGINX_ENABLED_VHOSTS/$1
 
-# Restart
-echo "Do you wish to restart nginx?"
-select yn in "Yes" "No"; do
-    case $yn in
-    Yes)
-        service nginx restart
-        break
-        ;;
-    No) exit ;;
-    esac
-done
+service nginx restart
+
+sudo certbot --nginx -d $domain -d www.$domain
 
 ok "Site Created for $domain"

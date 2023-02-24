@@ -1,7 +1,7 @@
 echo "Int before Setup"
-sudo apt upgrade
+sudo apt -y upgrade
 sudo apt update
-sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
+sudo apt -y install apt-transport-https ca-certificates curl software-properties-common certbot python3-certbot-nginx apache2-utils
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 sudo apt-get -y install curl
@@ -13,10 +13,30 @@ sudo apt -y install docker-ce
 echo "Setuping docker-compose"
 sudo apt -y install docker-compose
 
-echo "Run docker"
-sudo apt upgrade
-docker-compose up -d
+# Compose
+echo "Do you want run docker-compose up ?"
+select yn in "Yes" "No"; do
+    case $yn in
+    Yes)
+        echo "Running docker up"
+        sudo apt upgrade
+        docker-compose up -d
+        break
+        ;;
+    No) exit ;;
+    esac
+done
 
-echo "Setup.. domain"
-chmod +x ./addvhost.sh
-sudo ./addvhost.sh
+# Restart
+echo "Do you want run setup up domain  ?"
+select yn in "Yes" "No"; do
+    case $yn in
+    Yes)
+        echo "Setup.. domain"
+        chmod +x ./addvhost.sh
+        sudo ./addvhost.sh
+        break
+        ;;
+    No) exit ;;
+    esac
+done
