@@ -13,6 +13,11 @@ sudo apt -y install docker-ce
 echo "Setuping docker-compose"
 sudo apt -y install docker-compose
 
-echo "Setup.. nginx"
+echo "Run docker"
+sudo apt upgrade
+docker-compose up -d
+
+echo "Setup.. domain"
 sudo apt update
-sudo apt install nginx
+chmod +x ./addvhost.sh
+sudo setup-docker.sh
