@@ -32,7 +32,7 @@ sudo chown -R www-data:www-data /var/log/nginx
 #[ $# != "1" ] && die "Usage: $(basename $0) domainName"
 
 # Create nginx config file
-cat >$NGINX_AVAILABLE_VHOSTS/$domain-vhost <<EOF
+cat >$NGINX_AVAILABLE_VHOSTS/$domain <<EOF
 ### www to non-www
 #server {
 #    listen	 80;
@@ -42,7 +42,7 @@ cat >$NGINX_AVAILABLE_VHOSTS/$domain-vhost <<EOF
 server {
     listen   80;
     server_name $domain www.$domain;
-    root  $WEB_DIR/$primaryusername;
+    root  $WEB_DIR/$domain;
     charset  utf-8;
     index index.php index.html index.htm;
      
@@ -73,10 +73,10 @@ server {
 EOF
 
 # Creating {public,log} directories
-#mkdir -p $WEB_DIR/USERNAME/{public_html,logs}
+mkdir -p $WEB_DIR/$domain/{public_html,logs}
 
 # Creating index.html file
-cat >$WEB_DIR/$primaryusername/index.html <<EOF
+cat >$WEB_DIR/$domain/index.html <<EOF
 <!DOCTYPE html>
 <head>
     <title>Quick links</title>
@@ -103,7 +103,7 @@ cat >$WEB_DIR/$primaryusername/index.html <<EOF
 EOF
 
 # Enable site by creating symbolic link
-ln -s $NGINX_AVAILABLE_VHOSTS/$1 $NGINX_ENABLED_VHOSTS/$1
+ln -s $NGINX_AVAILABLE_VHOSTS/$domain $NGINX_ENABLED_VHOSTS/$domain
 
 service nginx restart
 
