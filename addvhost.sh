@@ -31,6 +31,9 @@ sudo chown -R www-data:www-data /var/log/nginx
 [ $(id -g) != "0" ] && die "Script must be run as root."
 #[ $# != "1" ] && die "Usage: $(basename $0) domainName"
 
+rm $NGINX_AVAILABLE_VHOSTS/$domain
+rm $NGINX_ENABLED_VHOSTS/$domain
+
 # Create nginx config file
 cat >$NGINX_AVAILABLE_VHOSTS/$domain <<EOF
 ### www to non-www
