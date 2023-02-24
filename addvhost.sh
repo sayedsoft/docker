@@ -46,9 +46,8 @@ server {
     charset  utf-8;
     index index.php index.html index.htm;
    
-    #access_log $WEB_DIR/logs/$domain-access.log;
+    access_log $WEB_DIR/logs/$domain-access.log;
     error_log $WEB_DIR/logs/$domain-error.log;
-    access_log off;
 
     location / {
         try_files $uri $uri/ =404;
