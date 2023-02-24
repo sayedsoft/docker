@@ -2,7 +2,6 @@
 #
 sudo apt-get update
 
-USERNAME=dockeruser
 read -p "Enter domain name : " domain
 read -p "Enter username : " primaryusername
 
@@ -17,8 +16,9 @@ die() {
 sudo htpasswd -c /etc/nginx/.htpasswd $primaryusername
 
 # Variables
-#NGINX_AVAILABLE_VHOSTS='/etc/nginx/sites-available'
-NGINX_ENABLED_VHOSTS='/etc/nginx/conf.d'
+NGINX_AVAILABLE_VHOSTS='/etc/nginx/sites-available'
+NGINX_ENABLED_VHOSTS='/etc/nginx/modules-enabled'
+#NGINX_ENABLED_VHOSTS='/etc/nginx/conf.d'
 WEB_DIR='/var/www'
 WEB_USER=$primaryusername
 
@@ -27,7 +27,7 @@ WEB_USER=$primaryusername
 #[ $# != "1" ] && die "Usage: $(basename $0) domainName"
 
 # Create nginx config file
-cat >$NGINX_ENABLED_VHOSTS/$domain-vhost.conf <<EOF
+cat >$NGINX_AVAILABLE_VHOSTS/$domain-vhost <<EOF
 ### www to non-www
 #server {
 #    listen	 80;
@@ -37,15 +37,10 @@ cat >$NGINX_ENABLED_VHOSTS/$domain-vhost.conf <<EOF
 server {
     listen   80;
     server_name $domain www.$domain;
-    root  $NGINX_ENABLED_VHOSTS/$primaryusername;
+    root  $WEB_DIR/$primaryusername;
     charset  utf-8;
     index index.php index.html index.htm;
-    #access_log $WEB_DIR/logs/$domain-access.log;
-    access_log off;
-    error_log $WEB_DIR/logs/$domain-error.log;
-    #error_log off;
-    ## REWRITES BELOW ##
-    
+     
     location / {
         try_files $uri $uri/ =404;
         auth_basic "Restricted Content";
