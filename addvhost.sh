@@ -70,9 +70,6 @@ server {
         proxy_pass http://127.0.0.1:3000;
     }
 
-      location /hostmanager/ {
-        proxy_pass http://127.0.0.1:81;
-    }
 
 }
 EOF
@@ -94,9 +91,6 @@ cat >$WEB_DIR/$domain/index.html <<EOF
 <body class="p-5">
     <ul>
         <li>
-            <p><a target="_blank" href="http://$domain/hostmanager">host manager</a></p>
-        </li>
-        <li>
             <p><a target="_blank" href="http://$domain/pgadmin">PG Admin</a></p>
         </li>
         <li>
@@ -109,6 +103,8 @@ cat >$WEB_DIR/$domain/index.html <<EOF
 </body>
 </html>
 EOF
+
+sudo chown -R $USER:$USER $WEB_DIR/$domain
 
 # Enable site by creating symbolic link
 ln -s $NGINX_AVAILABLE_VHOSTS/$domain $NGINX_ENABLED_VHOSTS/
