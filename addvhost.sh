@@ -50,33 +50,28 @@ server {
         try_files $uri $uri/ =404;
         auth_basic "Restricted Content";
         auth_basic_user_file /etc/nginx/.htpasswd;
-
     }
-}
 
- server {
-    listen 80;
-    server_name $domain/pgadmin;
-    proxy_pass http://127.0.0.1:5050;
-}
+     location /pgadmin {
+        listen 80;
+        proxy_pass http://127.0.0.1:5050;
+    }
 
- server {
-    listen 80;
-    server_name $domain/redis-commander;
-    proxy_pass http://127.0.0.1:5050;
-}
+      location /redis-commander {
+        listen 80;
+        proxy_pass http://127.0.0.1:8081;
+    }
 
+    location /bullboard {
+        listen 80;
+        proxy_pass http://127.0.0.1:3000;
+    }
 
- server {
-    listen 80;
-    server_name $domain/bullboard;
-    proxy_pass http://127.0.0.1:3000;
-}
+      location /hostmanager {
+        listen 80;
+        proxy_pass http://127.0.0.1:81;
+    }
 
-server {
-    listen 80;
-    server_name $domain/hostmanager;
-    proxy_pass http://127.0.0.1:81;
 }
 
 EOF
