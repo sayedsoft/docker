@@ -53,22 +53,18 @@ server {
     }
 
      location /pgadmin {
-        listen 80;
         proxy_pass http://127.0.0.1:5050;
     }
 
       location /redis-commander {
-        listen 80;
         proxy_pass http://127.0.0.1:8081;
     }
 
     location /bullboard {
-        listen 80;
         proxy_pass http://127.0.0.1:3000;
     }
 
       location /hostmanager {
-        listen 80;
         proxy_pass http://127.0.0.1:81;
     }
 
@@ -96,10 +92,10 @@ cat >$WEB_DIR/$primaryusername/index.html <<EOF
             <p><a target="_blank" href="http://$domain/pgadmin">PG Admin</a></p>
         </li>
         <li>
-            <p><a target="_blank" href="http://$domain:8081/redis-commander">Redis commander</a></p>
+            <p><a target="_blank" href="http://$domain/redis-commander">Redis commander</a></p>
         </li>
         <li>
-            <p><a target="_blank" href="http://$domain:3000/bullboard">Bullboard</a></p>
+            <p><a target="_blank" href="http://$domain/bullboard">Bullboard</a></p>
         </li>
     </ul>
 </body>
