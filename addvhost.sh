@@ -17,7 +17,7 @@ sudo htpasswd -c /etc/nginx/.htpasswd $primaryusername
 
 # Variables
 NGINX_AVAILABLE_VHOSTS='/etc/nginx/sites-available'
-NGINX_ENABLED_VHOSTS='/etc/nginx/modules-enabled'
+NGINX_ENABLED_VHOSTS='/etc/nginx/sites-enabled'
 #NGINX_ENABLED_VHOSTS='/etc/nginx/conf.d'
 WEB_DIR='/var/www'
 WEB_USER=$primaryusername
