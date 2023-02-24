@@ -1,5 +1,6 @@
 version: "3.8"
 services:
+
   postgres:
     image: postgres
     container_name: local_pgdb
@@ -59,6 +60,7 @@ services:
       - ${REDIS_PORT}:${REDIS_PORT}
     volumes:
       - redis:/data
+
 volumes:
   redis:
     driver: local

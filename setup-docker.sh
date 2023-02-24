@@ -1,19 +1,4 @@
-# docker-on-ubuntu
-
-Install docker and docker-compose on ubuntu script
-
-Create file setup-docker.sh
-
-```sh
-touch setup-docker.sh
-chmod +x ./setup-docker.sh
-```
-
-paste this code by nano editor
-
-```sh
 echo "Int before Setup"
-echo " by AHMAD YAMAN SAYED"
 sudo apt upgrade
 sudo apt update
 sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
@@ -27,12 +12,7 @@ echo "Setuping docker"
 sudo apt -y install docker-ce
 echo "Setuping docker-compose"
 sudo apt -y install docker-compose
-```
 
-Run
-
-```sh
-sudo ./setup-docker.sh
-```
-
-ang join with docker...
+echo "Setup.. nginx"
+sudo apt update
+sudo apt install nginx
