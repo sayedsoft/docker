@@ -58,19 +58,19 @@ server {
         auth_basic_user_file /etc/nginx/.htpasswd;
     }
 
-     location /pgadmin {
+     location /pgadmin/ {
         proxy_pass http://127.0.0.1:5050;
     }
 
-      location /redis-commander {
+      location /redis-commander/ {
         proxy_pass http://127.0.0.1:8081;
     }
 
-    location /bullboard {
+    location /bullboard/ {
         proxy_pass http://127.0.0.1:3000;
     }
 
-      location /hostmanager {
+      location /hostmanager/ {
         proxy_pass http://127.0.0.1:81;
     }
 
@@ -115,6 +115,7 @@ ln -s $NGINX_AVAILABLE_VHOSTS/$domain $NGINX_ENABLED_VHOSTS/
 
 service nginx restart
 
+find / -type f -name ".certbot.lock" -exec rm {} \;
 sudo certbot --nginx -d $domain -d www.$domain
 
 ok "Site Created for $domain"
