@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 #
-
-sudo apt install certbot python3-certbot-nginx
+sudo apt-get update
+sudo apt install certbot python3-certbot-nginx apache2-utils
 
 USERNAME=dockeruser
 read -p "Enter domain name : " domain
+read -p "Enter username : " primaryusername
 
 # Functions
 ok() { echo -e '\e[32m'$domain'\e[m'; } # Green
@@ -12,6 +13,9 @@ die() {
     echo -e '\e[1;31m'$domain'\e[m'
     exit 1
 }
+
+sudo htpasswd -c /etc/nginx/.htpasswd $primaryusername
+sudo sh -c "openssl passwd -apr1 >> /etc/nginx/.htpasswd"
 
 # Variables
 #NGINX_AVAILABLE_VHOSTS='/etc/nginx/sites-available'
@@ -44,7 +48,10 @@ server {
     ## REWRITES BELOW ##
     
     location / {
-                try_files $uri $uri/ =404;
+        try_files $uri $uri/ =404;
+        auth_basic "Restricted Content";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+
     }
 }
 
@@ -55,16 +62,22 @@ server {
 }
 
  server {
-    listen 8081;
+    listen 80;
     server_name $domain/redis-commander;
     proxy_pass http://127.0.0.1:5050;
 }
 
 
  server {
-    listen 8081;
+    listen 80;
     server_name $domain/bullboard;
     proxy_pass http://127.0.0.1:3000;
+}
+
+server {
+    listen 80;
+    server_name $domain/hostmanager;
+    proxy_pass http://127.0.0.1:81;
 }
 
 EOF
@@ -82,6 +95,9 @@ cat >$WEB_DIR/USERNAME/index.html <<EOF
 </head>
 <body class="p-5">
     <ul>
+        <li>
+            <p><a target="_blank" href="http://$domain/hostmanager">host manager</a></p>
+        </li>
         <li>
             <p><a target="_blank" href="http://$domain/pgadmin">PG Admin</a></p>
         </li>
