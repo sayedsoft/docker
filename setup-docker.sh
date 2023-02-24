@@ -18,6 +18,5 @@ sudo apt upgrade
 docker-compose up -d
 
 echo "Setup.. domain"
-sudo apt update
 chmod +x ./addvhost.sh
-sudo setup-docker.sh
+sudo ./addvhost.sh
