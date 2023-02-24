@@ -45,7 +45,11 @@ server {
     root  $WEB_DIR/$domain;
     charset  utf-8;
     index index.php index.html index.htm;
-     
+   
+    #access_log $WEB_DIR/logs/$domain-access.log;
+    error_log $WEB_DIR/logs/$domain-error.log;
+    access_log off;
+
     location / {
         try_files $uri $uri/ =404;
         auth_basic "Restricted Content";
@@ -74,6 +78,7 @@ EOF
 
 # Creating {public,log} directories
 mkdir -p $WEB_DIR/$domain/{public_html,logs}
+mkdir -p $WEB_DIR/logs
 
 # Creating index.html file
 cat >$WEB_DIR/$domain/index.html <<EOF
