@@ -1,6 +1,5 @@
 version: "3.8"
 services:
-
   postgres:
     image: postgres
     container_name: local_pgdb
@@ -26,17 +25,6 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_HOST: postgres
     restart: unless-stopped
-
-  proxy-manager:
-    image: 'jc21/nginx-proxy-manager:latest'
-    restart: unless-stopped
-    ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
-    volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
 
   pgadmin:
     image: dpage/pgadmin4
