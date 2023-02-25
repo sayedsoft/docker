@@ -5,8 +5,7 @@ Install docker and docker-compose on ubuntu script
 Create file setup-docker.sh
 
 ```sh
-touch setup-docker.sh
-chmod +x ./setup-docker.sh
+sudo touch setup-docker.sh && sudo chmod +x ./setup-docker.sh
 ```
 
 paste this code by nano editor
