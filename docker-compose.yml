@@ -19,7 +19,7 @@ services:
     depends_on:
       - postgres
     ports:
-      - 3567:443
+      - 3567:80
     environment:
       POSTGRES_DB: api_db
       POSTGRES_USER: username
@@ -43,7 +43,7 @@ services:
     container_name: pgadmin4_container
     restart: always
     ports:
-      - "5050:443"
+      - "5050:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: super@admin.com
       PGADMIN_DEFAULT_PASSWORD: superpassword
@@ -60,7 +60,7 @@ services:
     environment:
       - REDIS_HOSTS=local:redis:6379
     ports:
-      - "8081:443"
+      - "8081:80"
     depends_on:
       - redis
 
@@ -69,7 +69,7 @@ services:
     image: deadly0/bull-board
     restart: always
     ports:
-      - 3000:443
+      - 3000:80
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
