@@ -19,7 +19,7 @@ services:
     depends_on:
       - postgres
     ports:
-      - 3567:3567
+      - 3567:443
     environment:
       POSTGRES_DB: api_db
       POSTGRES_USER: username
@@ -34,12 +34,6 @@ services:
       - '80:80'
       - '81:81'
       - '443:443'
-      - '1111:3567'
-      - '2222:5432'
-      - '3333:8081'
-      - '4444:5050'
-      - '5555:3000'
-      - '6666:6379'
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
@@ -49,7 +43,7 @@ services:
     container_name: pgadmin4_container
     restart: always
     ports:
-      - "5050:5050"
+      - "5050:443"
     environment:
       PGADMIN_DEFAULT_EMAIL: super@admin.com
       PGADMIN_DEFAULT_PASSWORD: superpassword
@@ -66,7 +60,7 @@ services:
     environment:
       - REDIS_HOSTS=local:redis:6379
     ports:
-      - "8081:8081"
+      - "8081:443"
     depends_on:
       - redis
 
@@ -75,7 +69,7 @@ services:
     image: deadly0/bull-board
     restart: always
     ports:
-      - 3000:3000
+      - 3000:443
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
